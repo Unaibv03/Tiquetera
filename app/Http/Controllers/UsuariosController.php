@@ -28,22 +28,37 @@ class UsuariosController extends Controller
 
     //Crear un nuevo usuario
     public function store(Request $request){
-        
-        $request->validate([
+
+        // Validar y guardar datos validados en $validated
+        $validated = $request->validate([
             'nombre' => 'required|string|max:255',
-            'email' => 'required|email|unique:usuarios,email',
+            'email' => 'required|email',
             'password' => 'required|string|min:6',
             'rol_id' => 'required|exists:roles,id',
         ]);
 
-        $usuario = UsuariosModel::create([
-            'nombre' => $request->nombre,
-            'email' => $request->email,
-            'password' => Hash::make($request->password), // Hash seguro
-            'rol_id' => $request->rol_id,
-        ]);
+        // Comprobar si ya existe usuario con ese email
+        $existeUsuario = UsuariosModel::where('email', $validated['email'])->first();
 
-        return response()->json($usuario, 201);
+        if ($existeUsuario) {
+            // Devolver error 409 Conflict con mensaje
+            return redirect()->route('cuentaNoCreada')->with('Message', 'Usuario no creado porque el email se repite');
+        }
+
+        // Crear nuevo usuario
+        $usuario = new UsuariosModel();
+        $usuario->nombre = $validated['nombre'];
+        $usuario->email = $validated['email'];
+        $usuario->password = bcrypt($validated['password']);
+        $usuario->rol_id = $validated['rol_id'];
+        $usuario->save();
+
+        //Devolver un json de confirmación
+        
+        //return response()->json($usuario, 201);
+
+        //Redireccionar a la página que indica que se ha creado correctamente
+        return redirect()->route('cuentaCreadaExito')->with('Message', 'Usuario creado correctamente');
 
     }
 

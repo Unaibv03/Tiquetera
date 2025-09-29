@@ -61,3 +61,5 @@ Route::get('/listarReseniaPorId/{id}', [ReseniaController::class, 'show']);//Lis
 Route::post('/crearResenia', [ReseniaController::class, 'store']);//Crear
 Route::delete('/borrarResenia/{id}', [ReseniaController::class, 'destroy']);//Borrar
 Route::put('/actualizarResenia/{id}', [ReseniaController::class, 'update']);//actualizar
+
+
