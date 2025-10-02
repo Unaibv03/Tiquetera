@@ -1,21 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  @vite(['resources/js/app.js', 'resources/css/app.css'])
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inicio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="icon" href="{{ asset('img/iconoPagina.png') }}" type="image/x-icon">
+
+
 </head>
 <body>
-    <ul class="pagination">
-  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-  <li class="page-item"><a class="page-link" href="#">1</a></li>
-  <li class="page-item"><a class="page-link" href="#">2</a></li>
-  <li class="page-item"><a class="page-link" href="#">3</a></li>
-  <li class="page-item"><a class="page-link" href="#">Next</a></li>
-</ul>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <div class="container-fluid">
+  <nav class="navbar navbar-expand-sm bg-light">
+
+    <div class="container-fluid">
+      <!-- Links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('loginInicial') }}">Login</a>
+        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('todosLosEventos') }}">Eventos</a>
+        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Reseñas</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+    <img src="/img/tiquetera.png" class="d-block mx-auto" style="width: 800px;" id="imagenTiquetera" alt="tiquetera.png">
+
+  <div class="container mt-4 mb-5">
+  <div class="card p-4 shadow-sm" style="background-color:#67DBD0; border-radius:15px">
+    <p class="mb-3 fs-4">
+      <strong>Venta de entradas para eventos por Madrid</strong> <br> Con una gran variedad de categorías para elegir, para todas las edades, a los que poder acceder con familia, amigos o pareja, en los lugares más carismáticos de la ciudad.
+    </p>
+    <h5 class="mb-2">Eventos:</h5>
+    <ul class="list-group list-group-flush" style="background-color: #67DBD0; border-top: 1px solid black; padding: 10px; margin-bottom: 0;">
+      <li class="list-group-item fs-5" id="li"> <a href="{{ route('futbol')}}">PARTIDOS DE FUTBOL EN CAMPO LIBRE</a> </li>
+      <li class="list-group-item fs-5" id="li"><a href="{{ route('bailes de salon')}}">BAILES DE SALON</a></li>
+      <li class="list-group-item fs-5" id="li"><a href="{{ route('karaoke')}}">KARAOKE</a></li>
+      <li class="list-group-item fs-5" id="li"><a href="{{ route('patinaje')}}">PATINAJE SOBRE HIELO</a></li>
+      <li class="list-group-item fs-5" id="li"><a href="{{ route('autocine')}}">AUTOCINE</a></li>
+      <li class="list-group-item fs-5" id="li"><a href="{{ route('bolos')}}">PARTIDAS DE BOLOS</a></li>
+      <li class="list-group-item fs-5" id="li"><a href="{{ route('recreativos')}}">RECREATIVOS</a></li>
+      <li class="list-group-item fs-5" id="li"><a href="{{ route('tour guiado')}}">TOURS GUIADOS</a></li>
+      <li class="list-group-item fs-5" id="li"><a href="{{ route('museos')}}">MUSEOS</a></li>
+      <li class="list-group-item fs-5" id="li"><a href="{{ route('buffets')}}">BUFFETS</a></li>
+      <li class="list-group-item fs-5" id="li"><a href="{{ route('concierto')}}">CONCIERTOS</a></li>
+    </ul>
+  </div>
+</div>
+
+
+    
 
 </body>
 </html>

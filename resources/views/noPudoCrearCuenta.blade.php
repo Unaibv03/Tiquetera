@@ -29,7 +29,7 @@
             <p class="card-text">
                 El correo que ingresaste está registrado en nuestra base de datos.
             </p>
-            <a href="{{ route('loginInicial') }}" class="btn btn-danger">Volver a intentar</a>
+            <a href="{{ route('crearCuenta') }}" class="btn btn-danger">Volver a intentar</a>
         </div>
     </div>
 </div>

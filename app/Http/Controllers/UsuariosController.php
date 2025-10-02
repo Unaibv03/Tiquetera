@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\UsuariosModel;
+use Illuminate\Support\Facades\Auth;
+
 
 class UsuariosController extends Controller
 {
@@ -86,7 +88,7 @@ class UsuariosController extends Controller
         'message' => 'Usuario actualizado correctamente',
         'usuario' => $usuario,
     ]);
-}
+    }
 
 
     // Eliminar un usuario
@@ -101,6 +103,29 @@ class UsuariosController extends Controller
         $usuario->delete();
 
         return response()->json(['mensaje' => 'Usuario eliminado correctamente']);
+    }
+
+    public function login(Request $request){
+
+        //Validamos los campos
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        //Buscar el usuario por email
+        $usuario = UsuariosModel::where('email', $request->email)->first();
+
+        if(!$usuario || !Hash::check($request->password, $usuario->password)){
+            
+            return redirect()->route('sesionNoIniciada');
+
+        }
+
+        //Autenticación correcta
+        Auth::login($usuario);
+        //Redirigir a la página principal
+        return redirect()->route('inicial');
     }
 
 }

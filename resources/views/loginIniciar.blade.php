@@ -16,15 +16,15 @@
 </head>
 <body>
 
-    <!--#43E07F-->
+        <img src="/img/tiquetera.png" class="d-block mx-auto" style="width: 500px;" id="imagenTiquetera" alt="tiquetera.png">
 
     <!--Login view-->
 
-    <div class="container mt-5 d-flex justify-content-center pt-5 mb-5">
+    <div class="container d-flex justify-content-center  mb-5">
     <div class="card shadow p-4 mt-5" id="cartaLogin" style="width: 22rem; border-radius: 1rem;">
     <h3 class="text-center mb-4">Iniciar sesión</h3>
-    <form>
-      
+    <form action="{{ route('iniciarSesion') }}" method="post">
+        @csrf
       <!-- Email -->
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>

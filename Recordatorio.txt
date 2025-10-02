@@ -1,0 +1,1 @@
+02/10/2025: Te has quedado creando el JS del evento de futbol para asignarle los valores de la base de datos
