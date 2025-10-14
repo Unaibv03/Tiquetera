@@ -10,8 +10,15 @@
 
     <!-- Ícono opcional -->
     <link rel="icon" href="{{ asset('img/iconoPagina.png') }}" type="image/x-icon">
-    @vite(['resources/js/app.js', 'resources/css/app.css'])
+    @vite(['resources/css/app.css'])
+    <!--Indispensable para ver los datos de los eventos-->
     @vite('resources/js/cargarDatosEventos.js')
+    <!--Indispensable para crear reseñas-->
+    @vite('resources/js/crearResenias.js')
+    <!--Indispensable para listar reseñas-->
+    @vite('resources/js/listarResenias.js')
+    <!--Añadimos csrf token para crear reseñas-->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 </head>
 <body>
@@ -66,7 +73,7 @@
 
                 <div class="mt-4">
                     <a href="#" class="btn btn-success btn-lg">🎟️ Reservar Entrada</a>
-                    <a href="#formularioResena" class="btn btn-warning ms-2" data-bs-toggle="modal" data-bs-target="#myModal">📝 Añadir reseña</a>
+                    <a href="#formularioResena" class="btn btn-warning ms-2" data-bs-toggle="modal" data-bs-target="#reviewModal">📝 Añadir reseña</a>
                     @endauth
                     <a href="/todosLosEventos" class="btn btn-outline-secondary ms-2">Volver a eventos</a>
                 </div>
@@ -80,33 +87,19 @@
             @endguest
 
 
-    <!-- The Modal -->
-    <div class="modal" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-            <h4 class="modal-title">Añadir reseña</h4>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body">
-            
-        </div>
-
-        <!-- Modal footer -->
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-        </div>
-
-        </div>
-    </div>
-    </div>
-
+            @include('components.modal')
+    
     </div><!--Fin de la carta-->
 </div><!--Fin del contenedor que tiene la carta y navbar-->
+
+    <!-- Reseñas -->
+<div class="container my-5">
+    <h3 class="mb-4">🗣️ Reseñas de los asistentes</h3>
+    <div id="contenedorResenias" class="row gy-3">
+        {{-- Aquí se insertarán las reseñas dinámicamente --}}
+    </div>
+</div>
+
 
     <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

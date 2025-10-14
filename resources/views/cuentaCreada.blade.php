@@ -40,7 +40,7 @@
 
       <!-- Botones -->
       <div class="d-grid gap-2 col-8 mx-auto">
-        <a href="{{ route('loginInicial') }}" class="btn btn-success">Iniciar sesión</a>
+        <a href="{{ route('login') }}" class="btn btn-success">Iniciar sesión</a>
       </div>
     </div>
   </div>

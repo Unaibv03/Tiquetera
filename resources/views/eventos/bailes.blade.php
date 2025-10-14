@@ -10,8 +10,15 @@
 
     <!-- Ícono opcional -->
    <link rel="icon" href="{{ asset('img/iconoPagina.png') }}" type="image/x-icon">
-    @vite(['resources/js/app.js', 'resources/css/app.css'])
+    @vite(['resources/css/app.css'])
     @vite('resources/js/cargarDatosEventos.js')
+
+    <!--Indispensable para crear reseñas-->
+    @vite('resources/js/crearResenias.js')
+    <!--Indispensable para listar reseñas-->
+    @vite('resources/js/listarResenias.js')
+    <!--Añadimos csrf token para crear reseñas-->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
 
@@ -59,7 +66,7 @@
 
                 <div class="mt-4">
                     <a href="#" class="btn btn-success btn-lg">🎟️ Reservar Entrada</a>
-                    <a href="#formularioResena" class="btn btn-warning ms-2">📝 Añadir reseña</a>
+                    <a href="#formularioResena" class="btn btn-warning ms-2" data-bs-toggle="modal" data-bs-target="#reviewModal">📝 Añadir reseña</a>
                     @endauth
                     <a href="/todosLosEventos" class="btn btn-outline-secondary ms-2">Volver a eventos</a>
                 </div>
@@ -72,6 +79,16 @@
             </div>
             @endguest
 
+            @include('components.modal')
+
+        </div>
+    </div>
+
+       <!-- Reseñas -->
+    <div class="container my-5">
+        <h3 class="mb-4">🗣️ Reseñas de los asistentes</h3>
+        <div id="contenedorResenias" class="row gy-3">
+            {{-- Aquí se insertarán las reseñas dinámicamente --}}
         </div>
     </div>
 

@@ -57,57 +57,72 @@ Route::get('/sesionNoIniciada', function () {
 
 //Futbol
 Route::get('/futbol', function(){
-    return view ('eventos.futbol');
+    $evento = EventosModel::find(3); // o el id que corresponda
+    return view('eventos.futbol', compact('evento'));
 })->name('futbol');
 
 //Bailes
 Route::get('/bailes de salon', function(){
-    return view ('eventos.bailes');
+    $evento = EventosModel::find(4); // o el id que corresponda
+    return view('eventos.bailes', compact('evento'));
 })->name('bailes de salon');
 
 //Bolos
 Route::get('/bolos', function(){
-    return view ('eventos.bolos');
+    $evento = EventosModel::find(5); // o el id que corresponda
+    return view('eventos.bolos', compact('evento'));
 })->name('bolos');
 
 //Autocine
 Route::get('/autocine', function(){
-    return view ('eventos.autocine');
+    $evento = EventosModel::find(7); // o el id que corresponda
+    return view('eventos.autocine', compact('evento'));
 })->name('autocine');
+
 
 //Buffets
 Route::get('/buffets', function(){
-    return view ('eventos.buffets');
+    $evento = EventosModel::find(6); // o el id que corresponda
+    return view('eventos.buffets', compact('evento'));
 })->name('buffets');
+
 
 //Karaoke
 Route::get('/karaoke', function(){
-    return view ('eventos.karaoke');
+    $evento = EventosModel::find(8); // o el id que corresponda
+    return view('eventos.karaoke', compact('evento'));
 })->name('karaoke');
+
 
 //Museos
 Route::get('/museos', function(){
-    return view ('eventos.museos');
+    $evento = EventosModel::find(9); // o el id que corresponda
+    return view('eventos.museos', compact('evento'));
 })->name('museos');
 
 //Patinaje
 Route::get('/patinaje', function(){
-    return view ('eventos.patinaje');
+    $evento = EventosModel::find(10); // o el id que corresponda
+    return view('eventos.patinaje', compact('evento'));
 })->name('patinaje');
 
 //Recreativos
 Route::get('/recreativos', function(){
-    return view ('eventos.recreativos');
+    $evento = EventosModel::find(11); // o el id que corresponda
+    return view('eventos.recreativos', compact('evento'));
 })->name('recreativos');
+
 
 //Tours
 Route::get('/tour guiado', function(){
-    return view ('eventos.tours');
+    $evento = EventosModel::find(12); // o el id que corresponda
+    return view('eventos.tours', compact('evento'));
 })->name('tour guiado');
 
 //Conciertos
 Route::get('/concierto', function(){
-    return view('eventos.conciertos');
+    $evento = EventosModel::find(13); // o el id que corresponda
+    return view('eventos.conciertos', compact('evento'));
 })->name('concierto');
 
 //Página de eventos
