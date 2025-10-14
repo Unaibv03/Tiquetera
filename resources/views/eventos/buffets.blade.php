@@ -9,43 +9,66 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Ícono opcional -->
-    <link rel="icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('img/iconoPagina.png') }}" type="image/x-icon">
     @vite(['resources/js/app.js', 'resources/css/app.css'])
+    @vite('resources/js/cargarDatosEventos.js')
 </head>
 <body>
-    <div class="container my-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card shadow-lg">
-                    <img
-                        src="{{ asset('img/buffets.png') }}"
-                        class="card-img-top"
-                        alt="Buffet Exclusivo"
-                        style="height: 400px; object-fit: cover;"
-                    />
-                    <div class="card-body">
-                        <h2 class="card-title text-center mb-3">🍴 Buffet Exclusivo</h2>
-                        <p class="card-text">
-                            Disfruta de una experiencia culinaria única con una selección gourmet de platillos internacionales, postres y bebidas especiales en nuestro buffet exclusivo.
-                        </p>
+@include('components.navbar')
 
-                        <dl class="row my-4">
-                            <dt class="col-sm-4">📅 Fecha:</dt>
-                            <dd class="col-sm-8">Domingo 12 de diciembre de 2025</dd>
+    <div class="container my-3">
+        <div class="card shadow-lg" id="evento-card" data-evento-id="6">
+            <img 
+                src="/img/buffets.png" 
+                class="card-img-top" 
+                alt="Concierto en vivo"
+                style="height: 600px; object-fit: cover;"
+            />
 
-                            <dt class="col-sm-4">🕒 Hora:</dt>
-                            <dd class="col-sm-8">12:30 PM - 16:00 PM</dd>
+            <div class="card-body">
+                <h1 class="card-title text-center mb-4">Variedad de buffets</h1>
 
-                            <dt class="col-sm-4">📍 Lugar:</dt>
-                            <dd class="col-sm-8">Hotel Gran Gourmet, Salón Principal</dd>
-                        </dl>
+                <p class="card-text">
+                    Un evento para los amantes del buen comer. Disfruta de una experiencia gastronómica con una gran variedad de sabores en nuestro exclusivo buffet. Platos para todos los gustos, ambiente acogedor y una ocasión perfecta para compartir.
+                </p>
 
-                        <div class="text-center">
-                            <a href="#" class="btn btn-outline-danger btn-lg">🎫 Reservar Ahora</a>
-                        </div>
-                    </div>
+                <ul class="list-group list-group-flush my-4">
+                    <li class="list-group-item"><strong>📍 Lugar:</strong><span id="lugar">Cargando...</span></li>
+                    <li class="list-group-item"><strong>📅 Fecha y hora:</strong> <span id="fechayHora">Cargando...</span></li>
+                    <li class="list-group-item"><strong>📚 Categoria: </strong> <span id="categoria">Cargando...</span></li>
+                    <li class="list-group-item"><strong>🎫 Precio:</strong> <span id="precio">Cargando...</span> </li>
+                </ul>
+
+                @auth
+                <div class="mb-3">
+                    <label for="cantidad" class="form-label">🎟️ Cantidad de entradas</label>
+                <input 
+                    type="number" 
+                    name="cantidad" 
+                    id="cantidad" 
+                    class="form-control w-25" 
+                    min="1" 
+                    step="1" 
+                    value="1"
+                    required
+                >
+                </div>
+
+
+                <div class="mt-4">
+                    <a href="#" class="btn btn-success btn-lg">🎟️ Reservar Entrada</a>
+                    <a href="#formularioResena" class="btn btn-warning ms-2">📝 Añadir reseña</a>
+                    @endauth
+                    <a href="/todosLosEventos" class="btn btn-outline-secondary ms-2">Volver a eventos</a>
                 </div>
             </div>
+
+            @guest
+            <br>
+             <div class="alert alert-warning text-center">
+                ⚠️ Debes <a href="{{route('login')}}"> <strong><u> iniciar sesión</u></strong> </a> para comprar entradas o añadir reseñas.
+            </div>
+            @endguest
         </div>
     </div>
 

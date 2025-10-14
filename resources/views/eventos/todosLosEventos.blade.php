@@ -6,26 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Eventos Disponibles</title>
 
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-
     <style>
         .card-img-top {
             height: 200px;
             object-fit: cover;
         }
         
+        body{
+            
+        }
 
     </style>
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <link rel="icon" href="{{ asset('img/iconoPagina.png') }}" type="image/x-icon">
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
 <body>
-    
-<div class="container my-5">
 
-    <h1 class="text-center mb-4 m-5">🎉 Eventos Disponibles</h1>
+@include('components.navbar')
+
+<div class="container my-3">
+
+    <h1 class="text-center mb-4 m-4">🎉 Eventos Disponibles</h1>
 
     <div class="row g-4" id="eventos">
         <p id="loading-message" class="text-center text-muted my-4">
@@ -37,9 +41,11 @@
 
 </div>
 
-        <script>
-            window.baseUrl = "{{asset('img')}}";
-        </script>
+    <script>
+        window.baseUrl = "{{asset('img')}}";
+    </script>
+
+    
 
 </body>
 </html>

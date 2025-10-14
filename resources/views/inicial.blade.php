@@ -1,39 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!--Importaciones de la página-->
   @vite(['resources/js/app.js', 'resources/css/app.css'])
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Inicio</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
+  <!--Icono de la página-->
   <link rel="icon" href="{{ asset('img/iconoPagina.png') }}" type="image/x-icon">
 
 
 </head>
 <body>
 
-  <div class="container-fluid">
+  <div class="container-fluid" id="contenedor">
   <nav class="navbar navbar-expand-sm bg-light">
 
-    <div class="container-fluid">
+    <div class="container">
       <!-- Links -->
       <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('loginInicial') }}">Login</a>
-        </li>
+        
           <li class="nav-item">
             <a class="nav-link" href="{{ route('todosLosEventos') }}">Eventos</a>
         </li>
+        @auth
           <li class="nav-item">
-            <a class="nav-link" href="#">Reseñas</a>
+              <a href="{{ route('carrito') }}" class="nav-link">Ir al carrito</a>
           </li>
+          @endauth
         </ul>
+
+
+        <!-- Contenido del navbar -->
+            <div class=" justify-content-end" id="navbarRight">
+                @auth
+                    <ul class="navbar-nav mt-1">
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{ route('perfil') }}">Ver perfil</a>
+                    </li>
+                    <li class="nav-item">
+                      <form action="{{route('logout')}}" method="POST">
+                        @csrf
+                        <button type="submit" id="botonSubmit">Cerrar sesion</button>
+                      </form>
+                    </li>
+                    <li>
+                        <img src="{{asset('/img/iconoPerfil.png')}}" alt="" id="iconoPerfil">
+                    </li>
+                    
+                </ul>
+                @endauth
+
+                @guest
+                    <!-- Botón derecho -->
+                    
+                    <ul class="navbar-nav">
+                    <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">Iniciar sesion</a>
+                    </li>
+                </ul>
+                @endguest
+            </div>
+
       </div>
     </nav>
   </div>
 
-    <img src="/img/tiquetera.png" class="d-block mx-auto" style="width: 800px;" id="imagenTiquetera" alt="tiquetera.png">
+    <img src="/img/tiquetera.png" class="d-block mx-auto" style="width: 600px;" id="imagenTiquetera" alt="tiquetera.png">
 
   <div class="container mt-4 mb-5">
   <div class="card p-4 shadow-sm" style="background-color:#67DBD0; border-radius:15px">

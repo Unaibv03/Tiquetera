@@ -9,32 +9,65 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <!-- Ícono (opcional) -->
-    <link rel="icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('img/iconoPagina.png') }}" type="image/x-icon">
     @vite(['resources/js/app.js', 'resources/css/app.css'])
+    @vite('resources/js/cargarDatosEventos.js')
 </head>
 <body>
 
-    <div class="container my-5">
-        <div class="card shadow-lg">
-            <img src="{{ asset('img/autocine.png') }}" class="card-img-top" alt="Autocine" style="height: 400px; object-fit: cover;">
-            
+    @include('components.navbar')
+
+    <div class="container my-3">
+        <div class="card shadow-lg" id="evento-card" data-evento-id="7">
+            <img 
+                src="/img/autocine.png" 
+                class="card-img-top" 
+                alt="Concierto en vivo"
+                style="height: 600px; object-fit: cover;"
+            />
+
             <div class="card-body">
-                <h1 class="card-title text-center mb-4">🎬 Noche de Autocine</h1>
+                <h1 class="card-title text-center mb-4">Autocine</h1>
 
                 <p class="card-text">
-                    Vive la experiencia del cine al aire libre desde la comodidad de tu auto. Este evento es ideal para familias, parejas y amantes del cine clásico y moderno.
+                    Vive la magia del cine desde la comodidad de tu coche. Te esperamos en el autocine para una noche de película bajo las estrellas. Sonido envolvente, snacks, y una experiencia única al estilo retro. ¡No te lo pierdas!
                 </p>
 
                 <ul class="list-group list-group-flush my-4">
-                    <li class="list-group-item"><strong>📅 Fecha:</strong> Viernes 20 de octubre de 2025</li>
-                    <li class="list-group-item"><strong>🕗 Hora:</strong> 20:30</li>
-                    <li class="list-group-item"><strong>📍 Lugar:</strong> Estacionamiento del Centro Cultural</li>
+                    <li class="list-group-item"><strong>📍 Lugar:</strong><span id="lugar">Cargando...</span></li>
+                    <li class="list-group-item"><strong>📅 Fecha y hora:</strong> <span id="fechayHora">Cargando...</span></li>
+                    <li class="list-group-item"><strong>📚 Categoria: </strong> <span id="categoria">Cargando...</span></li>
+                    <li class="list-group-item"><strong>🎫 Precio:</strong> <span id="precio">Cargando...</span> </li>
                 </ul>
-
-                <div class="text-center mt-4">
-                    <a href="#" class="btn btn-primary btn-lg">🎟️ Reservar Entrada</a>
+                @auth
+               <div class="mb-3">
+                    <label for="cantidad" class="form-label">🎟️ Cantidad de entradas</label>
+                <input 
+                    type="number" 
+                    name="cantidad" 
+                    id="cantidad" 
+                    class="form-control w-25" 
+                    min="1" 
+                    step="1" 
+                    value="1"
+                    required
+                >
+                </div>
+              
+                <div class="mt-4">
+                    
+                    <a href="#" class="btn btn-success btn-lg">🎟️ Reservar Entrada</a>
+                    <a href="#formularioResena" class="btn btn-warning ms-2">📝 Añadir reseña</a>
+                    @endauth
+                    <a href="/todosLosEventos" class="btn btn-outline-secondary ms-2">Volver a eventos</a>
                 </div>
             </div>
+            @guest
+            <br>
+             <div class="alert alert-warning text-center">
+                ⚠️ Debes <a href="{{route('login')}}"> <strong><u> iniciar sesión</u></strong> </a> para comprar entradas o añadir reseñas.
+            </div>
+            @endguest
         </div>
     </div>
 

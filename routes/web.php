@@ -12,7 +12,7 @@ Route::get('/', function () {
 //Vista por defecto del login
 Route::get('/login', function () {
     return view('loginIniciar');
-})->name('loginInicial');
+})->name('login');
 
 //Vista por defecto de crear la cuenta desde el login
 Route::get('/crearCuentaLogin', function () {
@@ -42,6 +42,9 @@ Route::get('/cuentaNoCreada', function () {
 
 //Cuando el usuario está intentando iniciar sesión y lo comprobamos
 Route::post('/iniciarSesion', [UsuariosController::class, 'login'])->name('iniciarSesion');
+
+//Cerrar sesion
+Route::post('/logout', [UsuariosController::class, 'logout'])->name('logout');
 
 //Al intentar iniciar sesión pero no poner bien las credenciales
 Route::get('/sesionNoIniciada', function () {
@@ -117,9 +120,30 @@ Route::get('/eventos/todosLosEventos', function(){
 Route::get('/todosLosEventos', function(){
     $eventos = EventosModel::all();
     return view('eventos.todosLosEventos', compact('eventos'));
-});
+})->name('eventos');
+
+
 
 //Pruebas
-Route::get('/pruebas', function(){
-    return view('prueba');
-})->name('pruebas');
+Route::get('/prueba', function () {
+    return auth()->check() ? 'Estás autenticado' : 'No estás autenticado';
+});
+
+//Protegemos las rutas que queramos para que solo las vean usuarios logeados
+use App\Http\Controllers\EntradasController;
+
+//Gestión de las compras y perfiles
+
+
+//Carrito
+Route::get('/carrito', function(){
+    return view ('entradas.carrito');
+})->name('carrito');
+
+//Perfil
+Route::get('/perfil', function(){
+    return view ('perfil.perfil');
+})->name('perfil');
+
+
+

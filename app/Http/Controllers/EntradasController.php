@@ -75,4 +75,23 @@ class EntradasController extends Controller
 
         return response()->json(['mensaje' => 'Entrada eliminada correctamente']);
     }
+
+    //Nuevo método para mostrar el carrito
+    public function carrito()
+    {
+        if (!auth()->check()) {
+            // Usuario NO autenticado: muestra la vista con mensaje
+            return view('entradas.carrito')->with('mensaje', 'Inicia sesión para acceder al carrito.');
+        }
+
+        $usuario = auth()->user();
+
+        $entradas = EntradasModel::with('evento.categoria')
+            ->where('usuario_id', $usuario->id)
+            ->get();
+
+        return view('entradas.carrito', compact('entradas'));
+    }
+
+
 }

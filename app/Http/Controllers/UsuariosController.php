@@ -124,8 +124,23 @@ class UsuariosController extends Controller
 
         //Autenticación correcta
         Auth::login($usuario);
+
+        $request->session()->regenerate();
+
         //Redirigir a la página principal
         return redirect()->route('inicial');
+    }
+
+    //Método para cerrar sesión, salir de la autenticacion
+    public function logout(Request $request){
+
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
+
     }
 
 }
