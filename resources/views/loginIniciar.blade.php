@@ -16,12 +16,12 @@
 </head>
 <body>
 
-        <img src="/img/tiquetera.png" class="d-block mx-auto" style="width: 500px;" id="imagenTiquetera" alt="tiquetera.png">
+        <img src="/img/tiquetera.png" class="d-block mx-auto" style="width: 400px;" id="imagenTiquetera" alt="tiquetera.png">
 
     <!--Login view-->
 
-    <div class="container d-flex justify-content-center  mb-5">
-    <div class="card shadow p-4 mt-5" id="cartaLogin" style="width: 22rem; border-radius: 1rem;">
+    <div class="container d-flex justify-content-center  ">
+    <div class="card shadow p-4" id="cartaLogin" style="width: 24rem; border-radius: 1rem;">
     <h3 class="text-center mb-4">Iniciar sesión</h3>
     <form action="{{ route('iniciarSesion') }}" method="post">
         @csrf
@@ -54,6 +54,9 @@
 
     <p class="text-center mt-3 mb-0">
       ¿No tienes cuenta? <a href="crearCuentaLogin" style="color:green;">Regístrate</a>
+    </p>
+    <p class="text-center mt-2 mb-0">
+      ¿Has olvidado tu contraseña? <a href="{{ route('nuevaPassword') }}" style="color:green;" >Recupérala</a>
     </p>
 
     </div>

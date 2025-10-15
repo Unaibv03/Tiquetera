@@ -143,4 +143,58 @@ class UsuariosController extends Controller
 
     }
 
+    //Método para cambiar de vista
+    public function showChangePasswordForm(){
+        return view('perfil.cambiar_contraseña');
+    }
+
+    //Método para cambiar la contraseña
+    public function updatePassword(Request $request){
+
+        //Validar datos del formulario
+        $request->validate([
+            'clave_antigua' => 'required',
+            'clave_nueva' => 'required|min:8|confirmed'
+        ], [
+            'nueva_password.confirmed' => 'La confirmación de la nueva contraseña no coincide.'
+        ]);
+
+        //Verificar que la contraseña actual es correcta
+        if(!Hash::check($request->clave_antigua, Auth::user()->password)){
+            return back()->withErrors(['password_actual' => 'La contraseña actual no es correcta']);
+        }
+
+        //Actualizamos la contraseña
+        $user = Auth::user();
+        $user->password = Hash::make($request->clave_nueva);
+        Hash::make($request->clave_nueva);
+        $user->save();
+
+        return back()->with('success', 'Contraseña actualizada correctamente.');
+    }
+
+    public function nuevaPassword(Request $request){
+
+        //Validar entrada
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:8'
+        ]);
+
+        //Buscar usuario por email
+        $usuario = UsuariosModel::where('email', $request->email)->first();
+
+        if(!$usuario){
+            return back()->withErrors(['email' => 'No se encontró ningún usuario con ese email.']);
+        }
+
+        //Actualizar contraseña(hasheada)
+        $usuario->password = Hash::make($request->password);
+        $usuario->save();
+
+        return back()->with('status', 'Contraseña actualizada correctamente');
+
+    }
+
 }
+ 

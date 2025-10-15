@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\EntradasModel;
+use Illuminate\Support\Facades\Auth;
 
 class EntradasController extends Controller
 {
@@ -93,5 +94,28 @@ class EntradasController extends Controller
         return view('entradas.carrito', compact('entradas'));
     }
 
+    public function procesarCompra(Request $request){
+
+        //Validar la solicitud
+        $request->validate([
+            'evento_id' => 'required|exists:eventos,id',
+            'cantidad' => 'required|integer|min:1'
+        ]);
+
+        //Obtener el usuario autenticado
+        $usuario = Auth::user();
+
+        //Crear la entrada
+        EntradasModel::create([
+            'cantidad' => $request->input('cantidad'),
+            'fechaCompra' => now(),
+            'usuario_id' => $usuario->id,
+            'evento_id' => $request->input('evento_id'),
+        ]);
+
+        //Redirigir con mensaje de éxito
+        return redirect()->route('todosLosEventos')->with('success', '¡Compra realizada con éxito!');
+
+    }
 
 }

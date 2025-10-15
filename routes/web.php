@@ -160,5 +160,21 @@ Route::get('/perfil', function(){
     return view ('perfil.perfil');
 })->name('perfil');
 
+//Cambiar contraseña
+Route::get('/cambiarPassword', function(){
+    return view('perfil.cambiarPassword');
+})->name('cambiarPassword');
 
+Route::post('/cambiar-contraseña', [UsuariosController::class, 'updatePassword'])->name('cambiarContrasenia.update');
 
+//Contraseña nueva
+Route::get('/nuevaPassword', function(){
+    return view('nuevaPassword');
+})->name('nuevaPassword');
+
+Route::post('/nuevaPass', [UsuariosController::class, 'nuevaPassword'])->name('password.change');
+
+//Venta de entradas
+Route::post('/procesar-compra', [EntradasController::class, 'procesarCompra'])
+    ->middleware('auth')
+    ->name('entradas.procesarCompra');

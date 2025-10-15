@@ -48,7 +48,7 @@
   <div class="error-container">
     <h1>Error de inicio de sesión</h1>
     <p>El usuario o la contraseña no coinciden. Por favor, inténtalo de nuevo.</p>
-    <a href="{{ route('loginInicial') }}">Volver al formulario de inicio de sesión</a>
+    <a href="{{ route('login') }}">Volver al formulario de inicio de sesión</a>
   </div>
 </body>
 </html>

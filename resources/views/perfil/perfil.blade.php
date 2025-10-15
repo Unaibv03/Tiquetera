@@ -4,12 +4,16 @@
   <meta charset="UTF-8">
   <title>Perfil de Usuario</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  @vite(['resources/css/app.css'])
+
 </head>
-<body class="bg-light py-5">
+<body class="mt-3">
 
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8">
+
+        @include('components.navbar')
 
         <!-- Tarjeta de perfil -->
         <div class="card shadow mb-4">
@@ -17,9 +21,9 @@
             <h4 class="mb-0">Perfil de Usuario</h4>
           </div>
           <div class="card-body">
-            <p><strong>👤 Nombre:</strong> Juan Pérez</p>
-            <p><strong>📧 Email:</strong> juan.perez@example.com</p>
-            <a href="/cambiar-contraseña" class="btn btn-warning">🔒 Cambiar contraseña</a>
+            <p><strong>👤 Nombre:</strong>{{auth()->user()->nombre}}</p>
+            <p><strong>📧 Email:</strong>{{auth()->user()->email}}</p>
+            <a href="{{route('cambiarPassword')}}" class="btn btn-warning">🔒 Cambiar contraseña</a>
           </div>
         </div>
 
