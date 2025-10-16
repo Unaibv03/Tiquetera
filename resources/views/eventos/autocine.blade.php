@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autocine - Evento Especial</title>
 
-    <!-- Bootstrap 5 (CDN) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
     <!-- Ícono (opcional) -->
     <link rel="icon" href="{{ asset('img/iconoPagina.png') }}" type="image/x-icon">
+
+    <!--Dependencias de bootstrap-->
     @vite(['resources/css/app.css'])
+    @vite(['resources/js/app.js'])
+
     @vite('resources/js/cargarDatosEventos.js')
 
     <!--Indispensable para crear reseñas-->
@@ -47,26 +48,8 @@
                     <li class="list-group-item"><strong>🎫 Precio:</strong> <span id="precio">Cargando...</span> </li>
                 </ul>
                 @auth
-               <form method="POST" action="{{ route('entradas.procesarCompra') }}">
-                @csrf
-                <input type="hidden" name="evento_id" value="{{ $evento->id }}">
-
-                <div class="mb-3">
-                    <label for="cantidad" class="form-label">🎟️ Cantidad de entradas</label>
-                    <input 
-                        type="number" 
-                        name="cantidad" 
-                        id="cantidad" 
-                        class="form-control w-25" 
-                        min="1" 
-                        step="1" 
-                        value="1"
-                        required
-                    >
-                </div>
-
-                    <button type="submit" class="btn btn-success btn-lg">🎟️ Reservar Entrada</button>
-                </form>
+               
+                    @include('components.formulario')
 
                     <a href="#formularioResena" class="btn btn-warning ms-2" data-bs-toggle="modal" data-bs-target="#reviewModal">📝 Añadir reseña</a>
                     @endauth

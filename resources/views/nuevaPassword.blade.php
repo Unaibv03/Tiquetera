@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Cambiar Contraseña</title>
     @vite(['resources/js/app.js', 'resources/css/app.css'])
+    <!-- Ícono opcional -->
+    <link rel="icon" href="{{ asset('img/iconoPagina.png') }}" type="image/x-icon">
 </head>
 <body class="mt-5">
 

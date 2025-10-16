@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Cambiar Contraseña</title>
     @vite(['resources/css/app.css'])
+    <!-- Ícono opcional -->
+    <link rel="icon" href="{{ asset('img/iconoPagina.png') }}" type="image/x-icon">
 </head>
 <body class="mt-3">
 @include('components.navbar')

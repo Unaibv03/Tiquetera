@@ -151,9 +151,13 @@ use App\Http\Controllers\EntradasController;
 
 
 //Carrito
-Route::get('/carrito', function(){
-    return view ('entradas.carrito');
-})->name('carrito');
+Route::get('/carrito', [EntradasController::class, 'carrito'])->name('carrito');
+
+Route::get('/carritoEntradas', [EntradasController::class, 'carrito'])->name('entradas.carrito');
+Route::post('/carrito/agregar', [EntradasController::class, 'agregarAlCarrito'])->name('carrito.agregar');
+Route::post('/carrito/comprar', [EntradasController::class, 'procesarCompra'])->name('carrito.comprar');
+Route::delete('/carrito/eliminar/{index}', [EntradasController::class, 'eliminarDelCarrito'])->name('carrito.eliminar');
+
 
 //Perfil
 Route::get('/perfil', function(){
@@ -178,3 +182,7 @@ Route::post('/nuevaPass', [UsuariosController::class, 'nuevaPassword'])->name('p
 Route::post('/procesar-compra', [EntradasController::class, 'procesarCompra'])
     ->middleware('auth')
     ->name('entradas.procesarCompra');
+
+//Mostrar entradas en el perfil
+Route::get('/perfil', [UsuariosController::class, 'perfil'])->name('perfil');
+

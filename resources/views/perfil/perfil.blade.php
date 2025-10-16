@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Perfil de Usuario</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Ícono opcional -->
+    <link rel="icon" href="{{ asset('img/iconoPagina.png') }}" type="image/x-icon">
   @vite(['resources/css/app.css'])
 
 </head>
@@ -33,19 +34,19 @@
             <h5 class="mb-0">🎟️ Entradas Compradas</h5>
           </div>
           <div class="card-body">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">
-                <strong>Evento:</strong> Concierto Rock Fest<br>
-                <strong>Fecha:</strong> 15 de Noviembre 2025<br>
-                <strong>Cantidad:</strong> 2 entradas
-              </li>
-              <li class="list-group-item">
-                <strong>Evento:</strong> Partido de Fútbol<br>
-                <strong>Fecha:</strong> 20 de Octubre 2025<br>
-                <strong>Cantidad:</strong> 1 entrada
-              </li>
-              <!-- Puedes repetir los <li> dinámicamente si usas Blade -->
-            </ul>
+            @if($entradas->isEmpty())
+              <p class="text-muted">No has comprado entradas aún.</p>
+            @else
+              <ul class="list-group list-group-flush">
+                @foreach($entradas as $entrada)
+                  <li class="list-group-item">
+                    <strong>Evento:</strong> {{ $entrada->evento->nombre ?? 'Evento eliminado' }}<br>
+                    <strong>Fecha:</strong> {{ \Carbon\Carbon::parse($entrada->fechaCompra)->format('d \d\e F Y') }}<br>
+                    <strong>Cantidad:</strong> {{ $entrada->cantidad }} {{ Str::plural('entrada', $entrada->cantidad) }}
+                  </li>
+                @endforeach
+              </ul>
+            @endif
           </div>
         </div>
 

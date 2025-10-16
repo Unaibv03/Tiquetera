@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\UsuariosModel;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\EntradasModel;
 
 class UsuariosController extends Controller
 {
@@ -156,7 +156,8 @@ class UsuariosController extends Controller
             'clave_antigua' => 'required',
             'clave_nueva' => 'required|min:8|confirmed'
         ], [
-            'nueva_password.confirmed' => 'La confirmación de la nueva contraseña no coincide.'
+            'clave_nueva.min' => 'La nueva contraseña debe tener al menos 8 caracteres.',  // <-- personalizado
+            'clave_nueva.confirmed' => 'La confirmación de la nueva contraseña no coincide.',
         ]);
 
         //Verificar que la contraseña actual es correcta
@@ -195,6 +196,19 @@ class UsuariosController extends Controller
         return back()->with('status', 'Contraseña actualizada correctamente');
 
     }
+
+    //Mostrar datos en el perfil
+    public function perfil()
+{
+    $usuario = Auth::user();
+
+    // Obtener todas las entradas del usuario con el evento relacionado
+    $entradas = EntradasModel::with('evento')
+                ->where('usuario_id', $usuario->id)
+                ->get();
+
+    return view('perfil.perfil', compact('usuario', 'entradas'));
+}
 
 }
  

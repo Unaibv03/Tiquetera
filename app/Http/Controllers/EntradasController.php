@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\EntradasModel;
 use Illuminate\Support\Facades\Auth;
+use App\Models\EventosModel;
 
 class EntradasController extends Controller
 {
@@ -80,41 +81,70 @@ class EntradasController extends Controller
     //Nuevo método para mostrar el carrito
     public function carrito()
     {
-        if (!auth()->check()) {
-            // Usuario NO autenticado: muestra la vista con mensaje
-            return view('entradas.carrito')->with('mensaje', 'Inicia sesión para acceder al carrito.');
-        }
+    
+        //Crear el carrito
+        $carrito = session('carrito', []);
+        return view('entradas.carrito', compact('carrito'));
 
-        $usuario = auth()->user();
-
-        $entradas = EntradasModel::with('evento.categoria')
-            ->where('usuario_id', $usuario->id)
-            ->get();
-
-        return view('entradas.carrito', compact('entradas'));
     }
 
-    public function procesarCompra(Request $request){
+    //Agregar entradas al carrito principal
+    public function agregarAlCarrito(Request $request){
 
-        //Validar la solicitud
         $request->validate([
             'evento_id' => 'required|exists:eventos,id',
             'cantidad' => 'required|integer|min:1'
         ]);
 
-        //Obtener el usuario autenticado
+        $evento = EventosModel::with('categoria')->findOrFail($request->evento_id);
+
+        $carrito = session()->get('carrito', []);
+
+        $carrito[] = [
+            'evento_id' => $evento->id,
+            'nombre_evento' => $evento->nombre,
+            'fecha_evento' => $evento->fecha,
+            'categoria' => $evento->categoria->nombre ?? 'Sin categoría',
+            'cantidad' => $request->cantidad,
+            'precio' => $evento->precio,
+            'subtotal' => $evento->precio * $request->cantidad,
+        ];
+
+        session(['carrito' => $carrito]);
+
+        return redirect()->route('entradas.carrito')->with('success', 'Entrada agregada al carrito.');
+
+    }
+
+    //Confirmar la compra (guardar en base de datos)
+    public function procesarCompra()
+    {
         $usuario = Auth::user();
+        $carrito = session('carrito', []);
 
-        //Crear la entrada
-        EntradasModel::create([
-            'cantidad' => $request->input('cantidad'),
-            'fechaCompra' => now(),
-            'usuario_id' => $usuario->id,
-            'evento_id' => $request->input('evento_id'),
-        ]);
+        foreach ($carrito as $entrada) {
+            EntradasModel::create([
+                'cantidad' => $entrada['cantidad'],
+                'fechaCompra' => now(),
+                'usuario_id' => $usuario->id,
+                'evento_id' => $entrada['evento_id'],
+            ]);
+        }
 
-        //Redirigir con mensaje de éxito
-        return redirect()->route('todosLosEventos')->with('success', '¡Compra realizada con éxito!');
+        session()->forget('carrito');
+
+        return redirect()->route('todosLosEventos')->with('success', '¡Compra procesada correctamente!');
+    }
+
+
+    //Eliminar un item del carrito
+    public function eliminarDelCarrito($index){
+
+        $carrito = session()->get('carrito',[]);
+        unset($carrito[$index]);
+        session(['carrito' => array_values($carrito)]);
+
+        return redirect()->route('entradas.carrito')->with('success', 'Entrada eliminada del carrito.');
 
     }
 

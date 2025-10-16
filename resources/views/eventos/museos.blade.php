@@ -7,7 +7,11 @@
 
     <!-- Ícono opcional -->
     <link rel="icon" href="{{ asset('img/iconoPagina.png') }}" type="image/x-icon">
+    
+    <!--Dependencias de bootstrap-->
     @vite(['resources/css/app.css'])
+    @vite(['resources/js/app.js'])
+    
     @vite('resources/js/cargarDatosEventos.js')
 
     <!--Indispensable para crear reseñas-->
@@ -36,33 +40,12 @@
                     Una experiencia única para descubrir el valor del patrimonio cultural. Visita el museo y recorre sus exposiciones permanentes y temporales, con piezas que cuentan historias del pasado y del presente.
                 </p>
 
-                <ul class="list-group list-group-flush my-4">
-                    <li class="list-group-item"><strong>📍 Lugar:</strong><span id="lugar">Cargando...</span></li>
-                    <li class="list-group-item"><strong>📅 Fecha y hora:</strong> <span id="fechayHora">Cargando...</span></li>
-                    <li class="list-group-item"><strong>📚 Categoria: </strong> <span id="categoria">Cargando...</span></li>
-                    <li class="list-group-item"><strong>🎫 Precio:</strong> <span id="precio">Cargando...</span> </li>
-                </ul>
+                @include('components.lista')
+
                 @auth
-                <form method="POST" action="{{ route('entradas.procesarCompra') }}">
-                @csrf
-                <input type="hidden" name="evento_id" value="{{ $evento->id }}">
 
-                <div class="mb-3">
-                    <label for="cantidad" class="form-label">🎟️ Cantidad de entradas</label>
-                    <input 
-                        type="number" 
-                        name="cantidad" 
-                        id="cantidad" 
-                        class="form-control w-25" 
-                        min="1" 
-                        step="1" 
-                        value="1"
-                        required
-                    >
-                </div>
+                    @include('components.formulario')
 
-                    <button type="submit" class="btn btn-success btn-lg">🎟️ Reservar Entrada</button>
-                </form>
                     <a href="#formularioResena" class="btn btn-warning ms-2" data-bs-toggle="modal" data-bs-target="#reviewModal">📝 Añadir reseña</a>
                     @endauth
                     <a href="/todosLosEventos" class="btn btn-outline-secondary ms-2">Volver a eventos</a>
